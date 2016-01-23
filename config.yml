@@ -1,21 +1,24 @@
 window:
-  type: "dock"
+  # dock, toolbar
+  type: "toolbar"
+
+  # Dock the window to the top or bottom of the screen
+  dock: "top"
   size:
     # Accepted values are integers or percentages
     height: 20
+
     # Accepted values are integers, percentages or 'auto'
     width: "auto"
 
-  position:
-    # Accepted values are integers, percentages or 'auto'
-    x: "auto"
-    y: 0
-
   padding:
-    left: 15
-    right: 15
-    top: 10
-    bottom: 0
+    # Accepted values are integers or percentages
+    left: 0
+    right: 0
+    top: 0
+
+    # Only used when docked bottom
+    botom: 0
 
 
 time: true

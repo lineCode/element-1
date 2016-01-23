@@ -37,14 +37,19 @@ var createWindow = function(display, win) {
     width: getWidth(display.bounds.width, win.size.width, padding),
     height: getHeight(display.bounds.height, win.size.height),
     type: win.type,
-    x: getXPos(display.bounds.width, display.bounds.x, win.position.x, padding),
-    y: getYPos(display.bounds.height, display.bounds.y, win.position.y, padding),
-    center: false,
     frame: false,
-    autoHideMenuBar: true
+    autoHideMenuBar: true,
+    alwaysOnTop: true
   }
+
   // Create the browser window.
   mainWindow = new BrowserWindow(windowOptions)
+
+  // Set position outside of options to avoid centering issue
+  mainWindow.setPosition(
+      getXPos(display.bounds.width, display.bounds.x, padding),
+      getYPos(display.bounds.height, display.bounds.y, padding)
+  )
 
   // Make it visible on all workspaces
   mainWindow.setVisibleOnAllWorkspaces(true);
@@ -64,45 +69,39 @@ var createWindow = function(display, win) {
   });
 };
 
-var getXPos = function(displayWidth, displayX, configX, padding){
-  if(typeof(configX) == "string"){
-    if(configX == "auto"){
-      return displayX + padding.left;
-    }
-    return displayX + displayWidth * (parseInt(configX.replace("%", "")) / 100);
+var getXPos = function(displayWidth, displayX, padding){
+  if(typeof(padding.left) == "string") {
+    return displayX + percentToInt(displayWidth, padding.left);
   }
-  return displayX + configX;
+  return displayX + padding.left
 };
 
-var getYPos = function(displayHeight, displayY, configY, padding){
-  if(typeof(configY) == "string"){
-    if(configY == "auto"){
-      return displayY - padding.top;
-    }
-    return displayY + displayHeight * (parseInt(configY.replace("%", "")) / 100);
+var getYPos = function(displayHeight, displayY, padding){
+  if(typeof(padding.top) == "string"){
+    return displayY + percentToInt(displayHeight, padding.top)
   }
-  return displayY + configY;
+  return displayY + padding.top
 };
 
 var getHeight = function(displayHeight, configHeight){
-  if(typeof(configHeight) == "string") {
-    return displayHeight * (parseInt(configHeight.replace("%", "")) / 100);
-  } else {
-    return configHeight;
+  if(typeof(configHeight) == "string"){
+    return percentToInt(displayHeight, configHeight);
   }
+  return configHeight;
 };
 
 var getWidth = function(displayWidth, configWidth, padding){
-  if(typeof(configWidth) == "string"){
-    if(configWidth == "auto"){
-      return displayWidth - padding.left - padding.right;
-    }
-    return displayWidth * (parseInt(configWidth.replace("%", "")) / 100);
+  if(configWidth == "auto"){
+    return displayWidth - padding.left - padding.right
+  } else if(typeof(configWidth) == "string") {
+    return percentToInt(displayWidth, configWidth);
   }
   return configWidth;
 };
 
-
+var percentToInt = function(max, percent){
+  return Math.floor(max * (parseInt(percent.replace("%", "")) / 100));
+};
 
 
 ///////////////////////////////////////////////
