@@ -1,10 +1,10 @@
 {
   "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "version": "0.0.1",
+  "description": "An electron based status bar",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "electron main.js --enable-transparent-visuals --disable-gpu"
   },
   "repository": {
     "type": "git",
@@ -16,13 +16,20 @@
     "start",
     "tutorial"
   ],
-  "author": "GitHub",
+  "author": "CallahanRTS",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/atom/electron-quick-start/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/atom/electron-quick-start#readme",
+  "homepage": "",
   "devDependencies": {
-    "electron-prebuilt": "^0.36.0"
+    "electron-compilers": "^2.0.4",
+    "electron-prebuilt-compile": "^0.36.1"
+  },
+  "dependencies": {
+    "electron-compile": "^2.0.5",
+    "electron-reload": "^0.2.0",
+    "js-yaml": "^3.5.2",
+    "strftime": "^0.9.2"
   }
 }

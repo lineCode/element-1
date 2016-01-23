@@ -1,0 +1,23 @@
+window:
+  type: "dock"
+  size:
+    # Accepted values are integers or percentages
+    height: 20
+    # Accepted values are integers, percentages or 'auto'
+    width: "auto"
+
+  position:
+    # Accepted values are integers, percentages or 'auto'
+    x: "auto"
+    y: 0
+
+  padding:
+    left: 15
+    right: 15
+    top: 10
+    bottom: 0
+
+
+time: true
+date: true
+battery: true
