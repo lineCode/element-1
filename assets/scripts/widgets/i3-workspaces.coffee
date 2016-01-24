@@ -40,6 +40,9 @@ class Workspaces extends Widget
       when "name" then @createNameWorkspace(w)
       when "bullet" then @createBulletWorkspace(w)
 
+    # Go to a workspace on click
+    $el.on 'click', @selectWorkspace
+
     # Add to workspaces
     $(".workspaces").append $el
 
@@ -68,6 +71,9 @@ class Workspaces extends Widget
   $currentWorkspace: (w) =>
     $(".workspaces").find("[data-num='#{w.num || w.current.num}']")
 
+  selectWorkspace: (e) =>
+    i3.command "workspace #{$(e.target).data('num')}"
+
   element: =>
     """
     <style>#{@style()}</style>
@@ -83,9 +89,11 @@ class Workspaces extends Widget
       line-height: #{@window.size.height}px !important;
     }
     .workspace {
-      margin-right: 5px;
+      height: 100%;
+      padding: 0 4px;
     }
     .workspace.fa {
+      padding: 0 2px;
       font-size: 10px;
     }
     .active { color: #fff; }
