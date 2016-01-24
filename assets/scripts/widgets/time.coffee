@@ -5,13 +5,9 @@ strftime = require('strftime')
 module.exports =
 class Time
 
-  refresh: 1000
-  height: $(".bar").height()
-  timeFormat: "%l:%M"
-
-  constructor: ->
+  constructor: (@config, @window) ->
     $(".bar").append @element()
-    setInterval @update, @refresh
+    setInterval @update, @config.refresh
 
   update: =>
     $(".time").text @time()
@@ -23,10 +19,10 @@ class Time
 
   style: =>
     """
-    height: #{@height}px !important;
-    line-height: #{@height}px !important;
+    height: #{@window.size.height}px !important;
+    line-height: #{@window.size.height}px !important;
     """
 
   time: ->
-    strftime(@timeFormat, new Date())
+    strftime(@config.format, new Date())
 

@@ -1,15 +1,19 @@
 
-html, body, .bar{ margin: 0; padding: 0; height: 20px; line-height: 20px; background-color: transparent; }
-body{
-  padding: 0 10px;
-  background-color: transparent;
+html, body, .bar{ margin: 0; padding: 0; border: none; }
+body {
   color: white;
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   font-size: 12px;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  background-color: #303030;
 }
 
 .bar{
-  background-color: #303030;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   padding: 0 5px;
 }
 
@@ -22,7 +26,7 @@ body{
 .time{
   display: inline-block;
   float: right;
-  margin-right: 5px;
+  margin-right: 15px;
   vertical-align: middle;
 }
 

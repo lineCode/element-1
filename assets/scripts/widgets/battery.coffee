@@ -10,29 +10,27 @@ exec = require("child_process").exec
 module.exports =
 class Battery
 
-  refresh: 1000
-  height: $(".bar").height()
   capacityCommand: "upower -i /org/freedesktop/UPower/devices/battery_BAT0 | perl -wnE'say for /capacity:(.*)%/g'"
   percentageCommand: "upower -i /org/freedesktop/UPower/devices/battery_BAT0 | perl -wnE'say for /percentage:(.*)%/g'"
 
   # upower -i /org/freedesktop/UPower/devices/battery_BAT0
-  constructor: ->
+  constructor: (@config, @window) ->
     $(".bar").append @element()
     exec @capacityCommand, (err, stdout, stderr) =>
       @capacity = parseInt(stdout.replace(/\ /g, ""))
 
-    setTimeout @update, @refresh
+    setTimeout @update, @config.refresh
 
 
   update: =>
     exec @percentageCommand, (err, stdout, stderr) =>
       bat = parseInt(stdout.replace(/\ /g, ""))
-      console.log(bat, @capacity)
       percentage = Math.min(Math.floor(100 * (bat / @capacity)), 100)
+      percentageText = if @config.capacity is "last_charge" then percentage else bat
       $(".battery").html """
         <style>#{@style()}</style>
         <span class='fa #{@iconClass(percentage)}'></span>
-        <span>#{percentage}%</span>
+        <span>#{percentageText}%</span>
       """
 
   iconClass: (percentage) =>
@@ -55,6 +53,6 @@ class Battery
 
   style: =>
     """
-    .battery{ margin-right: 10px; }
+    .battery{ margin-right: 10px; height: #{@window.size.height}px; line-height: #{@window.size.height}px;}
     .fa { margin-right: 3px; }
     """

@@ -39,11 +39,17 @@ var createWindow = function(display, win) {
     type: win.type,
     frame: false,
     autoHideMenuBar: true,
-    alwaysOnTop: true
+    alwaysOnTop: true,
+    resizable: false,
+    movable: false,
+    title: ""
   }
 
   // Create the browser window.
   mainWindow = new BrowserWindow(windowOptions)
+
+  // Share config with client side
+  mainWindow.config = config;
 
   // Set position outside of options to avoid centering issue
   mainWindow.setPosition(

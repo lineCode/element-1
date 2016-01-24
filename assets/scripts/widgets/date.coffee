@@ -5,13 +5,9 @@ strftime = require('strftime')
 module.exports =
 class BarDate
 
-  refresh: 1000
-  height: $(".bar").height()
-  dateFormat: "%a %b %d"
-
-  constructor: ->
+  constructor: (@config, @window) ->
     $(".bar").append @element()
-    setInterval @update, @refresh
+    setInterval @update, @config.refresh
 
   update: =>
     $(".date").text @date()
@@ -23,11 +19,11 @@ class BarDate
 
   style: =>
     """
-    height: #{@height}px !important;
-    line-height: #{@height}px !important;
+    height: #{@window.size.height}px !important;
+    line-height: #{@window.size.height}px !important;
     """
 
 
   date: ->
-    strftime(@dateFormat, new Date())
+    strftime(@config.format, new Date())
 

@@ -1,17 +1,18 @@
 $ = require("jQuery")
 path = require("path")
 fs = require("fs")
+remote = require('electron').remote
 
 $(document).ready =>
   scripts = path.join(__dirname, "assets/scripts")
   widgets = "#{scripts}/widgets"
 
-  #fs.readdirSync(normalizedPath).forEach (file) ->
-  #  require(path.join(__dirname, "assets/scripts/widgets/", file))
+  config = remote.getCurrentWindow().config
 
-  config = JSON.parse fs.readFileSync("#{scripts}/config.json")
+  $(".bar html body").height(config.window.heght);
+  console.log config.window
 
-  for k, v of config
+  for k, v of config.elements
     Widget = require("#{widgets}/#{k}")
-    new Widget(v)
+    new Widget(v, config.window)
 
