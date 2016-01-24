@@ -1,16 +1,20 @@
+Widget = require("./widget.coffee")
 $ = require("jQuery")
 
 strftime = require('strftime')
 
 module.exports =
-class BarDate
+class BarDate extends Widget
 
-  constructor: (@config, @window) ->
+  constructor: ->
+    super("date")
     $(".bar").append @element()
     setInterval @update, @config.refresh
 
   update: =>
-    $(".date").text @date()
+    super("date")
+    $(".date").html @date()
+    console.log(@date(), $(".date").html())
 
   element: =>
     """
@@ -22,7 +26,6 @@ class BarDate
     height: #{@window.size.height}px !important;
     line-height: #{@window.size.height}px !important;
     """
-
 
   date: ->
     strftime(@config.format, new Date())

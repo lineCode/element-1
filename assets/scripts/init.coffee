@@ -9,7 +9,7 @@ $(document).ready =>
 
   config = remote.getCurrentWindow().config
 
-  $(".bar html body").height(config.window.heght);
+  $(".bar html body").height(config.window.heght)
   console.log config.window
 
   for k, v of config.elements

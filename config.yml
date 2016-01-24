@@ -27,11 +27,16 @@ elements:
     format: "%l:%M"
 
   date:
-    refresh: 1000
+    refresh: 300000
     format: "%a %b %d"
 
   battery:
-    refresh: 1000
+    refresh: 180000
     # last_charge | total
     capacity: "last_charge"
 
+  i3-workspaces:
+    # Style
+    #   name: shows the name of each workspace
+    #   bullet: shows a bullet for each workspace
+    style: "bullet"

@@ -8,7 +8,9 @@ const BrowserWindow = electron.BrowserWindow;
 
 require('electron-reload')(__dirname);
 
-const config = require('js-yaml').safeLoad(require('fs').readFileSync("./config.yml"))
+var jsyaml = require('js-yaml');
+var fs = require('fs');
+var config = jsyaml.safeLoad(fs.readFileSync("./config.yml"));
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -50,6 +52,7 @@ var createWindow = function(display, win) {
 
   // Share config with client side
   mainWindow.config = config;
+  watchConfig();
 
   // Set position outside of options to avoid centering issue
   mainWindow.setPosition(
@@ -72,6 +75,25 @@ var createWindow = function(display, win) {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null;
+  });
+};
+
+var resetWatcherTimeout;
+var watchConfig = function(){
+  var w = fs.watch("./config.yml");
+  w.on('change', function(e){
+    if(e == "change") {
+      // Reset configuration
+      config = jsyaml.safeLoad(fs.readFileSync("./config.yml"))
+      mainWindow.config = config;
+
+      // Restart watcher (vim/emacs can kill the watcher)
+      clearTimeout(resetWatcherTimeout);
+      resetWatcherTimeout = setTimeout(function(){
+        w.close();
+        watchConfig();
+      }, 1000);
+    }
   });
 };
 

@@ -1,4 +1,4 @@
-
+Widget = require("./widget.coffee")
 $ = require("jQuery")
 exec = require("child_process").exec
 
@@ -8,13 +8,14 @@ exec = require("child_process").exec
 # Percentage
 # upower -i /org/freedesktop/UPower/devices/battery_BAT0 | perl -wnE'say for /percentage:\s*(\d*)/g'
 module.exports =
-class Battery
+class Battery extends Widget
 
   capacityCommand: "upower -i /org/freedesktop/UPower/devices/battery_BAT0 | perl -wnE'say for /capacity:(.*)%/g'"
   percentageCommand: "upower -i /org/freedesktop/UPower/devices/battery_BAT0 | perl -wnE'say for /percentage:(.*)%/g'"
 
   # upower -i /org/freedesktop/UPower/devices/battery_BAT0
-  constructor: (@config, @window) ->
+  constructor:  ->
+    super('battery')
     $(".bar").append @element()
     exec @capacityCommand, (err, stdout, stderr) =>
       @capacity = parseInt(stdout.replace(/\ /g, ""))
@@ -23,6 +24,7 @@ class Battery
 
 
   update: =>
+    super('battery')
     exec @percentageCommand, (err, stdout, stderr) =>
       bat = parseInt(stdout.replace(/\ /g, ""))
       percentage = Math.min(Math.floor(100 * (bat / @capacity)), 100)

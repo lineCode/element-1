@@ -1,15 +1,18 @@
+Widget = require("./widget.coffee")
 $ = require("jQuery")
 
 strftime = require('strftime')
 
 module.exports =
-class Time
+class Time extends Widget
 
-  constructor: (@config, @window) ->
+  constructor: ->
+    super("time")
     $(".bar").append @element()
     setInterval @update, @config.refresh
 
   update: =>
+    super("time")
     $(".time").text @time()
 
   element: =>
