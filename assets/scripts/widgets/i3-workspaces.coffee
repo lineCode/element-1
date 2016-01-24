@@ -30,22 +30,43 @@ class Workspaces extends Widget
     switch @config.style
       when "name"
         $(".workspace").removeClass("active")
-        $(".workspace.#{w.current.num}").addClass("active")
+        @$currentWorkspace(w).addClass("active")
       when "bullet"
-        $(".workspace").removeClass("fa-circle fa-circle-thin").addClass("fa-circle-thin")
-        $(".workspace.#{w.current.num}").removeClass("fa-circle-thin").addClass("fa-circle")
+        $(".workspace").removeClass("fa-circle fa-circle-tin").addClass("fa-circle-thin")
+        @$currentWorkspace(w).removeClass("fa-circle-thin").addClass("fa-circle")
 
   createWorkspace: (w) =>
-    $(".workspaces").append switch @config.style
-      when "name"
-        active = if w.focused then "active" else ""
-        $("<span class='workspace #{active} #{w.num || w.current.num}'>#{w.name || w.current.name}</span>")
-      when "bullet"
-        bullet = if w.focused then "fa-circle" else "fa-circle-thin"
-        $("<span class='workspace #{w.num || w.current.num} fa #{bullet}'></span>")
+    $el = switch @config.style
+      when "name" then @createNameWorkspace(w)
+      when "bullet" then @createBulletWorkspace(w)
+
+    # Add to workspaces
+    $(".workspaces").append $el
+
+    # Ensure elements are always sorted by workspace number
+    @sortElements()
+
+  sortElements: =>
+    # Sort workspaces by workspace number
+    $sort = $(".workspace").sort (a, b) =>
+      $(a).data('num') - $(b).data('num')
+
+    $(".workspaces").append($e) for $e in $sort
+
+  createNameWorkspace: (w) =>
+    active = if w.focused then "active" else ""
+    $("<span class='workspace #{active}' data-num='#{w.num || w.current.num}'>#{w.name || w.current.name}</span>")
+
+  createBulletWorkspace: (w) =>
+    num = w.num || w.current.num
+    bullet = if w.focused then "fa-circle" else "fa-circle-thin"
+    $("<span class='workspace fa #{bullet}' data-num='#{num}'></span>")
 
   removeWorkspace: (w) =>
-    $(".workspace.#{w.current.num}").remove()
+    @$currentWorkspace(w).remove()
+
+  $currentWorkspace: (w) =>
+    $(".workspaces").find("[data-num='#{w.num || w.current.num}']")
 
   element: =>
     """
