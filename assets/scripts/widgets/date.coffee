@@ -14,7 +14,6 @@ class BarDate extends Widget
   update: =>
     super("date")
     $(".date").html @date()
-    console.log(@date(), $(".date").html())
 
   element: =>
     """
