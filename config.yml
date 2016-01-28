@@ -24,14 +24,14 @@ window:
 elements:
   time:
     refresh: 1000
-    format: "%l:%M"
+    format: "%l:%M:%S"
 
   date:
     refresh: 300000
     format: "%a %b %d"
 
   battery:
-    refresh: 180000
+    refresh: 30000
     # last_charge | total
     capacity: "last_charge"
 
@@ -40,3 +40,7 @@ elements:
     #   name: shows the name of each workspace
     #   bullet: shows a bullet for each workspace
     style: "bullet"
+
+  volume:
+    refresh: 1000
+

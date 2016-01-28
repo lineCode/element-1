@@ -9,7 +9,6 @@ class Time extends Widget
   constructor: ->
     super("time")
     $(".bar").append @element()
-    setInterval @update, @config.refresh
 
   update: =>
     super("time")

@@ -20,9 +20,6 @@ class Battery extends Widget
     exec @capacityCommand, (err, stdout, stderr) =>
       @capacity = parseInt(stdout.replace(/\ /g, ""))
 
-    setTimeout @update, @config.refresh
-
-
   update: =>
     super('battery')
     exec @percentageCommand, (err, stdout, stderr) =>

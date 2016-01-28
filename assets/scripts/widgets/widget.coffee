@@ -4,9 +4,8 @@ module.exports =
 class Widget
   constructor: (widget) ->
     @getConfig(widget)
-    setTimeout =>
-      @update(widget)
-    , 0
+    setTimeout @update, 0
+    setInterval @update, @config.refresh if @config?.refresh > 0
 
   update: (widget) =>
     @getConfig(widget)

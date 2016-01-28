@@ -9,7 +9,6 @@ class BarDate extends Widget
   constructor: ->
     super("date")
     $(".bar").append @element()
-    setInterval @update, @config.refresh
 
   update: =>
     super("date")

@@ -11,6 +11,8 @@ class Workspaces extends Widget
     @connectToI3()
     $(".bar").append @element()
 
+  update: =>
+
   connectToI3: =>
     # Collect existing workspaces
     i3.workspaces (err, ws) =>
