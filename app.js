@@ -13,8 +13,28 @@ require('electron-reload')(__dirname);
 
 var ensureConfig = function(path){
   if(!fs.existsSync(path + "config.yml")){
-    fs.writeFileSync(path + "config.yml", fs.readFileSync("./config.yml"))
+    fs.writeFileSync(path + "config.yml", fs.readFileSync("./config/config.sample.yml"))
   }
+};
+
+var symlinkWidgets = function(path){
+  var widgetsDir = "./assets/scripts/widgets/";
+  var userWidgetsDir = "./assets/scripts/widgets/user/widgets";
+  try{
+    fs.unlinkSync(userWidgetsDir);
+  } catch(e) { }
+  fs.symlinkSync(path + "widgets/", userWidgetsDir);
+};
+
+var symlinkStylesheets = function(path){
+  if(!fs.existsSync(path + "stylesheets/main.less")){
+    fs.writeFileSync(path + "stylesheets/main.less", fs.readFileSync("./assets/stylesheets/main.sample.less"))
+  }
+  var stylesheetsDir = "./assets/stylesheets/";
+  try{
+    fs.unlinkSync(stylesheetsDir + "main.less");
+  } catch(e) { }
+  fs.symlinkSync(path + "stylesheets/main.less", stylesheetsDir + "main.less");
 };
 
 var jsyaml = require('js-yaml');
@@ -22,6 +42,8 @@ var fs = require('fs');
 var production = process.argv[2] == "production";
 var configPath = process.env['HOME']+"/.config/element/"
 ensureConfig(configPath);
+symlinkWidgets(configPath);
+symlinkStylesheets(configPath);
 var config = jsyaml.safeLoad(fs.readFileSync(configPath + "config.yml"));
 
 // Keep a global reference of the window object, if you don't, the window will

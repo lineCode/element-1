@@ -7,6 +7,9 @@ fs = require("fs")
 remote = require('electron').remote
 
 window.requireCoffee = (file) ->
+  unless fs.existsSync(file)
+    file = "assets/scripts/widgets/user/widgets/#{coffee.helpers.baseFileName file}"
+
   if /\.coffee/.test(file)
     f = fs.readFileSync(file).toString()
     coffee.eval(f)
