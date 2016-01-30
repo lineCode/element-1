@@ -1,4 +1,4 @@
-Widget = require("./widget.coffee")
+Widget = requireCoffee("#{widgets}/widget.coffee")
 $ = require("jQuery")
 exec = require("child_process").exec
 

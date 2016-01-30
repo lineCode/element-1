@@ -1,4 +1,4 @@
-Widget = require("./widget.coffee")
+Widget = requireCoffee("#{widgets}/widget.coffee")
 $ = require("jQuery")
 
 strftime = require('strftime')

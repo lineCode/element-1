@@ -1,5 +1,8 @@
 'use strict';
 
+var CoffeeScript = require('coffee-script');
+CoffeeScript.register();
+
 const electron = require('electron');
 // Module to control application life.
 const app = electron.app;
@@ -8,14 +11,25 @@ const BrowserWindow = electron.BrowserWindow;
 
 require('electron-reload')(__dirname);
 
+var ensureConfig = function(path){
+  if(!fs.existsSync(path + "config.yml")){
+    fs.writeFileSync(path + "config.yml", fs.readFileSync("./config.yml"))
+  }
+};
+
 var jsyaml = require('js-yaml');
 var fs = require('fs');
-var config = jsyaml.safeLoad(fs.readFileSync("./config.yml"));
-
+var production = process.argv[2] == "production";
+var configPath = process.env['HOME']+"/.config/element/"
+ensureConfig(configPath);
+var config = jsyaml.safeLoad(fs.readFileSync(configPath + "config.yml"));
 
 // Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
+// be closed automatically when ;the JavaScript object is garbage collected.
 let mainWindow;
+
+var symlinkWidgets = function(){
+};
 
 var createWindows = function() {
   var screen = require("screen")
@@ -66,8 +80,10 @@ var createWindow = function(display, win) {
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools({ detach: true });
+  if(!production){
+    // Open the DevTools.
+    mainWindow.webContents.openDevTools({ detach: true });
+  }
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -80,12 +96,13 @@ var createWindow = function(display, win) {
 
 var resetWatcherTimeout;
 var watchConfig = function(){
-  var w = fs.watch("./config.yml");
+  var w = fs.watch(configPath + "config.yml");
   w.on('change', function(e){
     if(e == "change") {
       // Reset configuration
-      config = jsyaml.safeLoad(fs.readFileSync("./config.yml"))
+      config = jsyaml.safeLoad(fs.readFileSync(configPath + "config.yml"))
       mainWindow.config = config;
+      mainWindow.reload();
 
       // Restart watcher (vim/emacs can kill the watcher)
       clearTimeout(resetWatcherTimeout);

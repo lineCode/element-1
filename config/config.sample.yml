@@ -24,7 +24,7 @@ window:
 elements:
   time:
     refresh: 1000
-    format: "%l:%M:%S"
+    format: "%l:%M"
 
   date:
     refresh: 300000

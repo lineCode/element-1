@@ -1,5 +1,5 @@
 $ = require("jQuery")
-Widget = require('./widget.coffee')
+Widget = requireCoffee("#{widgets}/widget.coffee")
 exec = require("child_process").exec
 i3 = require('i3').createClient()
 

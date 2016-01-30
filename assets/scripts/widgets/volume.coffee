@@ -1,4 +1,4 @@
-Widget = require("./widget.coffee")
+Widget = requireCoffee("#{widgets}/widget.coffee")
 $ = require("jQuery")
 execSync = require('child_process').execSync
 dbus = require("dbus-native")
@@ -10,11 +10,12 @@ class Volume extends Widget
     super("volume")
     $(".bar").append @element()
 
-    sessionBus = dbus.sessionBus()
-    sessionBus.getService('org.gtk.vfs.UDisks2VolumeMonitor')
-              .getInterface '/org/gtk/Private/RemoveVolumeMonitor',
-                            'org.gtk.vfs.UDisks2VolumeMonitor', (err, notifications) =>
-                              console.log arguments
+    #sessionBus = dbus.sessionBus()
+    #console.log sessionBus
+    #sessionBus.getService('org.gtk.vfs.UDisks2VolumeMonitor')
+    #          .getInterface '/org/gtk/Private/RemoveVolumeMonitor',
+    #                        'org.gtk.vfs.UDisks2VolumeMonitor', (err, notifications) =>
+    #                          console.log arguments
 
         # dbus signals are EventEmitter events
         #notifications.on('PropertiesChanged', () =>
