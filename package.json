@@ -1,5 +1,5 @@
 {
-  "name": "element",
+  "name": "element-status",
   "version": "0.0.1",
   "description": "An electron based status bar",
   "main": "app.js",

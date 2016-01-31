@@ -4,7 +4,20 @@ coffee.register()
 $ = require("jQuery")
 path = require("path")
 fs = require("fs")
-remote = require('electron').remote
+electron = require('electron')
+remote = electron.remote
+
+activeWidgets = []
+startElement = (config) =>
+  activeWidgets.pop().destroy() for w in activeWidgets
+  window.config = config
+  $(".bar").html("")
+  $(".bar html body").height(config.window.size.height)
+  for k, v of config.elements
+    console.log k
+    Widget = requireCoffee("#{widgets}/#{k}.coffee")
+    activeWidgets.push new Widget(v, config.window)
+  console.log "\n\n"
 
 window.requireCoffee = (file) ->
   unless fs.existsSync(file)
@@ -16,16 +29,30 @@ window.requireCoffee = (file) ->
   else
     require file
 
+appendStylesheet = (file, classList) =>
+  $("head").append "<link class='#{classList}' rel='stylesheet' type='text/less' href='#{file}'>"
+
+removeStylesheet = (file) =>
+  console.log file
+  console.log $("link[href='#{file}']")
+  $("link[href='#{file}']").remove()
+
+appendStylesheet "assets/stylesheets/main.less"
+
+electron.ipcRenderer.on 'stylesheet', (err, file) =>
+  removeStylesheet file
+  appendStylesheet file, "user"
+
+  # Sort user stylesheets alphabetically
+  $("link.user").sort((a, b) =>
+    if $(b).attr('href') < $(a).attr('href') then 1 else -1
+  ).appendTo("head")
+
+electron.ipcRenderer.on 'config', (err, config) =>
+  startElement JSON.parse(config)
+
 $(document).ready =>
   scripts = path.join(__dirname, "assets/scripts")
   window.widgets = "#{scripts}/widgets"
-
-  config = remote.getCurrentWindow().config
-
-  $(".bar html body").height(config.window.heght)
-  console.log config.window
-
-  for k, v of config.elements
-    Widget = requireCoffee("#{widgets}/#{k}.coffee")
-    new Widget(v, config.window)
+  startElement remote.getCurrentWindow().config
 

@@ -5,12 +5,19 @@ class Widget
   constructor: (widget) ->
     @getConfig(widget)
     setTimeout @update, 0
-    setInterval @update, @config.refresh if @config?.refresh > 0
+    if @config?.refresh > 0
+      @updateInterval = setInterval(@update, @config.refresh)
 
   update: (widget) =>
     @getConfig(widget)
 
   getConfig: (widget) =>
-    config = remote.getCurrentWindow().config
+    config = window.config
     @config = config.elements[widget]
     @window = config.window
+
+  destroy: =>
+    console.log "destroy"
+    clearInterval @updateInterval
+    #@ = null
+
