@@ -1,12 +1,15 @@
 'use strict';
 
+var production = process.argv[2] == "production"
 var fs = require('fs'),
     coffee = require('coffee-script'),
     electron = require('electron');
 
 coffee.register();
 
-require('electron-reload')(__dirname);
+if(!production){
+  require('electron-reload')(__dirname);
+}
 
 coffee.eval(fs.readFileSync(__dirname + "/browser/window-manager.coffee").toString())
 coffee.eval(fs.readFileSync(__dirname + "/browser/config.coffee").toString())
@@ -24,7 +27,7 @@ const app = electron.app;
 app.on('ready', function(){
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when ;the JavaScript object is garbage collected.
-  let wm = new WindowManager(process.argv[2] == "production", __dirname)
+  let wm = new WindowManager(production, __dirname)
 });
 
 // Quit when all windows are closed.
