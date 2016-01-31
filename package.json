@@ -1,6 +1,6 @@
 {
   "name": "element-status",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An electron based status bar",
   "main": "app.js",
   "scripts": {
