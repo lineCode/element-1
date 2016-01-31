@@ -1,7 +1,7 @@
 coffee = require('coffee-script')
 coffee.register()
 
-$ = require("jQuery")
+$ = require("jquery")
 path = require("path")
 fs = require("fs")
 electron = require('electron')

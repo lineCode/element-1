@@ -1,5 +1,5 @@
 Widget = requireCoffee("#{widgets}/widget.coffee")
-$ = require("jQuery")
+$ = require("jquery")
 
 strftime = require('strftime')
 

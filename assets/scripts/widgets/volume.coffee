@@ -1,5 +1,5 @@
 Widget = requireCoffee("#{widgets}/widget.coffee")
-$ = require("jQuery")
+$ = require("jquery")
 execSync = require('child_process').execSync
 dbus = require("dbus-native")
 

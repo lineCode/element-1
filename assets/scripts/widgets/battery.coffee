@@ -1,5 +1,5 @@
 Widget = requireCoffee("#{widgets}/widget.coffee")
-$ = require("jQuery")
+$ = require("jquery")
 exec = require("child_process").exec
 
 # Capacity

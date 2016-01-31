@@ -16,7 +16,7 @@ class WindowManager
 
     @createWindows()
 
-    w.webContents.on('did-finish-load', -> @onload(w)) for w in @windows
+    w.webContents.on('did-finish-load', => @onload(w)) for w in @windows
 
   # onload initializes communication from browser to client for various
   # situations
