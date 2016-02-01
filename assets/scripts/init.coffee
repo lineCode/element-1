@@ -14,14 +14,13 @@ startElement = (config) =>
   $(".bar").html("")
   $(".bar html body").height(config.window.size.height)
   for k, v of config.elements
-    console.log k
     Widget = requireCoffee("#{widgets}/#{k}.coffee")
     activeWidgets.push new Widget(v, config.window)
-  console.log "\n\n"
 
 window.requireCoffee = (file) ->
+  file = window.root + "/" + file
   unless fs.existsSync(file)
-    file = "assets/scripts/widgets/user/widgets/#{coffee.helpers.baseFileName file}"
+    file = "#{window.userDir}/widgets/#{coffee.helpers.baseFileName file}"
 
   if /\.coffee/.test(file)
     f = fs.readFileSync(file).toString()
@@ -33,8 +32,6 @@ appendStylesheet = (file, classList) =>
   $("head").append "<link class='#{classList}' rel='stylesheet' type='text/less' href='#{file}'>"
 
 removeStylesheet = (file) =>
-  console.log file
-  console.log $("link[href='#{file}']")
   $("link[href='#{file}']").remove()
 
 appendStylesheet "assets/stylesheets/main.less"

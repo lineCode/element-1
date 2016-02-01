@@ -17,7 +17,6 @@ class Widget
     @window = config.window
 
   destroy: =>
-    console.log "destroy"
     clearInterval @updateInterval
     #@ = null
 

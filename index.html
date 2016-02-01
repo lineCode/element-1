@@ -5,10 +5,12 @@
     <link rel="stylesheet" href="assets/stylesheets/font-awesome.min.css">
     <!--link rel="stylesheet" type="text/less" href="assets/stylesheets/main.less"-->
     <script>
+      window.root = __dirname;
+      window.userDir = process.env['HOME'] + "/.config/element"
       fs = require('fs');
       coffee = require('coffee-script');
       coffee.register();
-      coffee.eval(fs.readFileSync("./assets/scripts/init.coffee").toString())
+      coffee.eval(fs.readFileSync(__dirname + "/assets/scripts/init.coffee").toString())
     </script>
   </head>
   <body>

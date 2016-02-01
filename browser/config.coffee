@@ -14,7 +14,7 @@ class ConfigManager
     w = fs.watch "#{@path}/stylesheets/"
     w.on 'change', (e, file) =>
       if e is "change" and file.indexOf(".") > 0
-        afterTimeout =>
+        @afterTimeout =>
           window.webContents.send "stylesheet", "#{@path}/stylesheets/#{file}"
           @styleTimeout = @resetWatcher(@styleTimeout, w, @watchStylesheets, window)
 
@@ -25,7 +25,7 @@ class ConfigManager
     w = fs.watch "#{@path}/widgets/"
     w.on 'change', (e, file) =>
       if e is "change" and file.indexOf('.') > 0
-        afterTimeout =>
+        @afterTimeout =>
           @reloadConfig(window, w, @watchWidgets)
 
 

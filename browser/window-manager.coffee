@@ -6,11 +6,11 @@ fs = require('fs')
 coffee = require('coffee-script')
 coffee.register()
 
-coffee.eval(fs.readFileSync(__dirname + "/browser/config.coffee").toString())
 
 module.exports =
 class WindowManager
-  constructor: (@production, @root) ->
+  constructor: (@options, @root) ->
+    coffee.eval(fs.readFileSync("#{@root}/browser/config.coffee").toString())
     @windows = []
     @cm = new ConfigManager()
 
@@ -62,7 +62,8 @@ class WindowManager
     window.loadURL "file://#{@root}/index.html"
 
     # Open the DevTools.
-    window.webContents.openDevTools({ detach: true }) unless @production
+    if !@options.production or @options.tools
+      window.webContents.openDevTools({ detach: true })
 
     return window
 

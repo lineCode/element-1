@@ -1,6 +1,8 @@
 'use strict';
+require('app-module-path').addPath(__dirname + "/node_modules");
 
-var production = process.argv[2] == "production"
+var production = process.argv.indexOf("production") != -1
+var devTools   = process.argv.indexOf('dev') != -1
 var fs = require('fs'),
     coffee = require('coffee-script'),
     electron = require('electron');
@@ -27,7 +29,7 @@ const app = electron.app;
 app.on('ready', function(){
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when ;the JavaScript object is garbage collected.
-  let wm = new WindowManager(production, __dirname)
+  let wm = new WindowManager({ production: production, tools: devTools }, __dirname)
 });
 
 // Quit when all windows are closed.

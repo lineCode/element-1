@@ -11,6 +11,6 @@ var electronPath = require('electron-prebuilt'),
 args.unshift(__dirname + '/../');
 
 args.push("production")
-console.log(electronPath)
+
 // Run electron
 childProcess.spawn(electronPath, args, { stdio: 'inherit' });
