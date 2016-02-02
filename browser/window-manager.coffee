@@ -77,9 +77,14 @@ class WindowManager
     frame: false
     autoHideMenuBar: true
     alwaysOnTop: true
+    title: ""
+
     resizable: false
     movable: false
-    title: ""
+    minimizable: false
+    maximizable: false
+    closable: false
+    textAreasAreResizable: false
 
 
   # Might be useful for os x. Leaving out for now
