@@ -16,7 +16,6 @@ class Battery extends Widget
   # upower -i /org/freedesktop/UPower/devices/battery_BAT0
   constructor:  ->
     super('battery')
-    $(".bar").append @element()
     exec @capacityCommand, (err, stdout, stderr) =>
       @capacity = parseInt(stdout.replace(/\ /g, ""))
 

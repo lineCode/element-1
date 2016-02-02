@@ -1,9 +1,13 @@
 remote = require('electron').remote
+$ = require("jquery")
 
 module.exports =
 class Widget
   constructor: (widget) ->
+    @homePath = process.env['HOME']
+    @configPath = "#{@homePath}/.config/element"
     @getConfig(widget)
+    $(".bar").append @element()
     setTimeout @update, 0
     if @config?.refresh > 0
       @updateInterval = setInterval(@update, @config.refresh)
@@ -18,5 +22,4 @@ class Widget
 
   destroy: =>
     clearInterval @updateInterval
-    #@ = null
 

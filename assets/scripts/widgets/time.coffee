@@ -8,7 +8,6 @@ class Time extends Widget
 
   constructor: ->
     super("time")
-    $(".bar").append @element()
 
   update: =>
     super("time")

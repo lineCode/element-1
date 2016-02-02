@@ -9,7 +9,6 @@ class Workspaces extends Widget
   constructor: ->
     super("i3-workspaces")
     @connectToI3()
-    $(".bar").append @element()
 
   update: =>
 

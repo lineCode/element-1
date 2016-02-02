@@ -8,7 +8,6 @@ class Volume extends Widget
 
   constructor: ->
     super("volume")
-    $(".bar").append @element()
 
     #sessionBus = dbus.sessionBus()
     #console.log sessionBus
