@@ -6,8 +6,8 @@
     <script>
       window.root = __dirname;
       window.userDir = process.env['HOME'] + "/.config/element"
-      fs = require('fs');
-      coffee = require('coffee-script');
+      var fs = require('fs');
+      var coffee = require('coffee-script');
       coffee.register();
       coffee.eval(fs.readFileSync(__dirname + "/assets/scripts/init.coffee").toString())
     </script>

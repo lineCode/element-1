@@ -30,6 +30,7 @@
     "app-module-path": "^1.0.5",
     "coffee-script": "^1.10.0",
     "dbus-native": "^0.2.0",
+    "electron-compilers": "^2.0.6",
     "electron-prebuilt": "^0.36.7",
     "fwatcher": "^2.2.1",
     "i3": "^0.2.0",

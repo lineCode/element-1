@@ -53,3 +53,4 @@ $(document).ready =>
   window.widgets = "#{scripts}/widgets"
   startElement remote.getCurrentWindow().config
 
+  console.log('test')

@@ -1,0 +1,31 @@
+window:
+  type: "toolbar" # Valid window types: dock, toolbar
+  dock: "top" # Dock the window to the top or bottom of the screen
+
+  size:
+    height: 24 # Accepted values are integers or percentages
+    width: "auto" # Accepted values are integers, percentages or 'auto'
+
+  padding:
+    # Accepted values are integers or percentages
+    left: 18
+    right: 18
+    top: 5
+
+    # Not implemented yet
+    #botom: 0 # Only used when docked bottom
+
+# Every widget can accept a refresh option by default. It it is the time to
+# update the widget in milliseconds. Other options will be available to
+# widgets through the @config variable
+#
+# Widgets will only be loaded in the status bar if they exist in the
+# elements array
+elements:
+  time:
+    refresh: 1000
+    format: "%l:%M"
+
+  date:
+    refresh: 300000
+    format: "%a %b %d"
