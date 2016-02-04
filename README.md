@@ -20,7 +20,7 @@ element
 ├── stylesheets/ # Custom styles using .less
 └── widgets/     # Custom widgets for displaying various information
 ```
-Example [`config.yaml`](https://github.com/callahanrts/element/blob/master/config.yml)
+Example [`config.yaml`](https://github.com/callahanrts/element/tree/master/examples)
 
 `config.yml` should be placed into your element configuration folder.
 
