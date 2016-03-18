@@ -14,7 +14,7 @@ element
 
 ## Screenshot
 
-<a href="./screenshot/screenshot.jpg"><img src="./screenshot/screenshot-thumb.jpg" width="100%"/></a>
+<a href="https://raw.githubusercontent.com/callahanrts/element/master/screenshot/screenshot.jpg"><img src="./screenshot/screenshot-thumb.jpg" width="100%"/></a>
 
 ## Configuration
 
