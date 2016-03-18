@@ -30,8 +30,9 @@ class WindowManager
   # loadStylesheets reads each of the stylesheets in the user's configuration
   # folder and sends them to the client
   loadStylesheets: (window) ->
-    for file in fs.readdirSync("#{@cm.path}/stylesheets/")
-      window.webContents.send("stylesheet", "#{@cm.path}/stylesheets/#{file}")
+    if fs.existsSync("#{@cm.path}/stylesheets/")
+      for file in fs.readdirSync("#{@cm.path}/stylesheets/")
+        window.webContents.send("stylesheet", "#{@cm.path}/stylesheets/#{file}")
 
 
   # createWindows creates a window for each display

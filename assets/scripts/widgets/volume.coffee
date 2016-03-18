@@ -45,7 +45,7 @@ class Volume extends Widget
     if @muted()
       0
     else
-      execSync("amixer get Master |grep % |awk '{print $5}'|sed 's/[^0-9]//g'").toString().split("\n")[0]
+      execSync("amixer get Master |grep % |awk '{print $4}'|sed 's/[^0-9]//g'").toString().split("\n")[0]
 
   muted: =>
     execSync("amixer get Master ").toString().match(/off/g) != null

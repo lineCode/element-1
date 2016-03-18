@@ -11,22 +11,24 @@ class ConfigManager
   # watchStylesheets watches for updates in the user's stylesheets path.
   # on change, it notifies the client so the stylesheet can be reloaded.
   watchStylesheets: (window) =>
-    w = fs.watch "#{@path}/stylesheets/"
-    w.on 'change', (e, file) =>
-      if e is "change" and file.indexOf(".") > 0
-        @afterTimeout =>
-          window.webContents.send "stylesheet", "#{@path}/stylesheets/#{file}"
-          @styleTimeout = @resetWatcher(@styleTimeout, w, @watchStylesheets, window)
+    if fs.existsSync("#{@path}/stylesheets/")
+      w = fs.watch "#{@path}/stylesheets/"
+      w.on 'change', (e, file) =>
+        if e is "change" and file.indexOf(".") > 0
+          @afterTimeout =>
+            window.webContents.send "stylesheet", "#{@path}/stylesheets/#{file}"
+            @styleTimeout = @resetWatcher(@styleTimeout, w, @watchStylesheets, window)
 
 
   # watchWidgets watches for widgets in the user's widgets path. on change, it
   # notifies the client that a user has added/changed a widget
   watchWidgets: (window) =>
-    w = fs.watch "#{@path}/widgets/"
-    w.on 'change', (e, file) =>
-      if e is "change" and file.indexOf('.') > 0
-        @afterTimeout =>
-          @reloadConfig(window, w, @watchWidgets)
+    if fs.existsSync("#{@path}/widgets/")
+      w = fs.watch "#{@path}/widgets/"
+      w.on 'change', (e, file) =>
+        if e is "change" and file.indexOf('.') > 0
+          @afterTimeout =>
+            @reloadConfig(window, w, @watchWidgets)
 
 
   # afterTimeout calls the passed method after a quarter second. fs.watch can
@@ -56,9 +58,10 @@ class ConfigManager
   # watchConfig watches the user's configuration file for changes. Upon change, it
   # notifies the client with the new configuration
   watchConfig: (window) =>
-    w = fs.watch "#{@path}/config.yml"
-    w.on 'change', (e) =>
-      @reloadConfig(window, w, @watchConfig) if e is "change"
+    if fs.existsSync "#{@path}/config.yml"
+      w = fs.watch "#{@path}/config.yml"
+      w.on 'change', (e) =>
+        @reloadConfig(window, w, @watchConfig) if e is "change"
 
 
   # reloadConfig is called from watching methods. It's the method that actually
