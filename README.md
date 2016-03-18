@@ -12,6 +12,10 @@ This is a cross platform status bar built on electron.
 element
 ```
 
+## Screenshot
+
+<img src="./screenshot.png" width="100%"/>
+
 ## Configuration
 
 ```bash
