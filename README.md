@@ -14,7 +14,7 @@ element
 
 ## Screenshot
 
-<img src="./screenshot.png" width="100%"/>
+<a href="./screenshot/screenshot.jpg"><img src="./screenshot/screenshot-thumb.jpg" width="100%"/></a>
 
 ## Configuration
 
